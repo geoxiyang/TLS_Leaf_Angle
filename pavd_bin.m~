@@ -3,15 +3,15 @@
 clear variables
 clc
 
-aa = xlsread('/Users/xiyang/Documents/GitHub/TLS_Leaf_Angle/PAVD_profiles.xlsx','HF');
+aa = xlsread('/Users/xiyang/Downloads/PAVD_profiles.xlsx','HF');
 h0 = aa(:,1);
 PAVD_A = aa(:,2);
 PAVD_B = aa(:,3);
 PAVD_C = aa(:,4);
 h1 = h0 - min(h0);
 
-limit  = 30;
-bin_size = 3;
+limit  = 40;
+bin_size = 5;
 for i = 1:(limit/bin_size+1)
     PAVD_A_bin(i) = sum(PAVD_A(h1>=(i-1)*bin_size & h1<i*bin_size)); 
     PAVD_B_bin(i) = sum(PAVD_B(h1>=(i-1)*bin_size & h1<i*bin_size));
@@ -31,8 +31,7 @@ figure
 subplot(2,1,1)
 plot(PAVD_A,h1,'ro-',PAVD_B,h1,'bo-',PAVD_C,h1,'ko-')
 subplot(2,1,2)
-plot(PAVD_A_bin,0:bin_size:limit,'r-',PAVD_B_bin,0:bin_size:limit,'b-',PAVD_C_bin,0:bin_size:limit,'k-')
-
+plot(PAVD_A_bin,0:bin_size:limit,'r-',PAVD_B_bin,0:bin_size:limit,'b-',PAVD_C_bin,0:bin_size:limit,'k-');hold off
 
 PAVD_A_bin_top_to_bottom = fliplr(PAVD_A_bin);
 PAVD_B_bin_top_to_bottom = fliplr(PAVD_B_bin);
